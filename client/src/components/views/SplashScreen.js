@@ -41,7 +41,7 @@ const SplashScreen = () => {
   return (
     <SplashScreenContainer>
       <ContentContainer>
-        <Typography variant="h3">Campus Connect</Typography>
+        <Typography variant="h3">Gamer's Connect</Typography>
         {/* <Typography variant="subtitle1" sx={{ marginTop: '1rem' }}>
           Connecting students worldwide
         </Typography> */}
