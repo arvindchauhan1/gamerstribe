@@ -16,12 +16,13 @@ import Navbar from "../Navbar";
 import PostBrowser from "../PostBrowser";
 import Profile from "../Profile";
 import ProfileTabs from "../ProfileTabs";
+import LinkBrowser from "../LinkBrowser";
 
 const ProfileView = () => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
-  const [tab, setTab] = useState("posts");
+  const [tab, setTab] = useState("links");
   const user = isLoggedIn();
   const [error, setError] = useState("");
   const params = useParams();
@@ -75,6 +76,14 @@ const ProfileView = () => {
   let tabs;
   if (profile) {
     tabs = {
+      links: (
+        <LinkBrowser
+          profileUser={profile.user}
+          contentType="links"
+          key="links"
+          fetchUser={fetchUser}
+        />
+      ),
       posts: (
         <PostBrowser
           profileUser={profile.user}
