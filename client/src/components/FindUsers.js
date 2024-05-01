@@ -5,6 +5,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
@@ -19,10 +20,11 @@ import UserEntry from "./UserEntry";
 const FindUsers = () => {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchUsers = async () => {
     setLoading(true);
-    const data = await getRandomUsers({ size: 5 });
+    const data = await getRandomUsers({ size: 20 });
     setLoading(false);
     setUsers(data);
   };
@@ -34,6 +36,9 @@ const FindUsers = () => {
   const handleClick = () => {
     fetchUsers();
   };
+
+  // Filter users based on search term
+  const filteredUsers = users && users.filter(user => user.username.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <Card>
@@ -54,11 +59,18 @@ const FindUsers = () => {
 
         <Divider />
 
+        {/* Search input field */}
+        <TextField
+          label="Search by username"
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+
         {loading ? (
           <Loading />
         ) : (
-          users &&
-          users.map((user) => (
+          filteredUsers && filteredUsers.map((user) => (
             <UserEntry username={user.username} key={user.username} />
           ))
         )}
