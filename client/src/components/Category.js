@@ -3,7 +3,7 @@ import { FormControl, MenuItem, Select, Typography } from "@mui/material";
 import HorizontalStack from "./util/HorizontalStack";
 
 const CategoryDropdown = ({ onSelectCategory }) => {
-  const categories = ['All', 'Lost and Found', 'Questions and Answers','Accomodation'];
+  const categories = ['All', 'news', 'Questions and Answers', 'achievements'];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const handleCategoryChange = (event) => {
