@@ -94,6 +94,7 @@ const MobileProfile = (props) => {
               </Box>
             )}
             {props.editing && (
+            
               <Box>
                 <ContentUpdateEditor
                   handleSubmit={props.handleSubmit}

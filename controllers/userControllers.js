@@ -108,7 +108,7 @@ const follow = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { userId, biography } = req.body;
+    const { userId, biography, links } = req.body;
 
     const user = await User.findById(userId);
 
@@ -119,6 +119,13 @@ const updateUser = async (req, res) => {
     if (typeof biography == "string") {
       user.biography = biography;
     }
+
+    if (!Array.isArray(links)) {
+      throw new Error("Links must be an array");
+    }
+
+    // Update user's links
+    user.links = links;
 
     await user.save();
 

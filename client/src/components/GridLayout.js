@@ -9,7 +9,7 @@ const GridLayout = (props) => {
       <Grid item xs={12} md={8}>
         {left}
       </Grid>
-      <Grid item md={4} sx={{ display: { xs: "none", md: "block" } }}>
+      <Grid item md={4} sx={{ display: { xs: "block", md: "block" }, margin: "0 auto", order: { xs: -1, md: "initial" } }}>
         {right}
       </Grid>
     </Grid>

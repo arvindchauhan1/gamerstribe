@@ -29,6 +29,7 @@ import { initiateSocketConnection, socket } from "./helpers/socketHelper";
 import { useEffect } from "react";
 import { BASE_URL } from "./config";
 import { io } from "socket.io-client";
+import SplashScreen from "./components/views/SplashScreen";
 
 function App() {
   initiateSocketConnection();
@@ -38,6 +39,7 @@ function App() {
       <BrowserRouter>
         <CssBaseline />
         <Routes>
+          <Route path="/splash" element={<SplashScreen />} />
           <Route path="/" element={<ExploreView />} />
           <Route path="/posts/:id" element={<PostView />} />
           <Route

@@ -35,6 +35,10 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    links: {
+      type: [String], // Array of strings (URLs)
+      default: [],
+    },
   },
   { timestamps: true }
 );
