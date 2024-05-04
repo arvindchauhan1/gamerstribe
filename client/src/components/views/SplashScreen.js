@@ -41,18 +41,18 @@ const SplashScreen = () => {
   return (
     <SplashScreenContainer>
       <ContentContainer>
-        <Typography variant="h3">Gamer's Connect</Typography>
+        <Typography variant="h3" sx={{ color: "#a0c0ff" }} >Gamers Zoo</Typography>
         {/* <Typography variant="subtitle1" sx={{ marginTop: '1rem' }}>
           Connecting students worldwide
         </Typography> */}
-        <Button variant="outlined" color="secondary" onClick={goToHomepage} sx={{ marginTop: '10px' }}>
+        <Button variant="outlined" color="success" onClick={goToHomepage} sx={{ marginTop: '20px' }}>
           Go to Homepage
         </Button>
       </ContentContainer>
 
-      <BottomContainer sx={{ position: 'relative' }}>
-        <Typography variant="body1">Team Members: John Doe, Jane Smith</Typography>
-        <Typography variant="body1">Project Guide: Prof. Emily Johnson</Typography>
+      <BottomContainer sx={{ position: 'relative', color: "#dddddd " }}>
+        <Typography variant="body1">Team Members: Arvind, Abhishek & Harsh</Typography>
+        <Typography variant="body1">Project Guide: Prof. Aasha Singh & Prof. Dhirendra</Typography>
       </BottomContainer>
     </SplashScreenContainer>
   );

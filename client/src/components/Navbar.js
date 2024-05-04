@@ -9,6 +9,7 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import React, { useEffect, useState } from "react";
 import "react-icons/ai";
 import "react-icons/ri";
@@ -25,7 +26,7 @@ import HorizontalStack from "./util/HorizontalStack";
 import { RiContrast2Line } from "react-icons/ri";
 import CategoryDropdown from './Category';
 
-const Navbar = ({ catego , setCatego}) => {
+const Navbar = ({ catego, setCatego }) => {
   const navigate = useNavigate();
   const user = isLoggedIn();
   const theme = useTheme();
@@ -86,8 +87,9 @@ const Navbar = ({ catego , setCatego}) => {
         spacing={!mobile ? 2 : 0}
       >
         <HorizontalStack>
-          <AiFillFileText
-            size={33}
+          <SportsEsportsIcon
+            size={48}
+            sx={{ cursor: "pointer", transform: "scale(2)", color: "#ff9200" }}
             color={theme.palette.primary.main}
             onClick={() => navigate("/")}
           />
@@ -122,7 +124,7 @@ const Navbar = ({ catego , setCatego}) => {
           {user ? (
             <>
 
-              <IconButton component={Link}  to={"/users/" + username}>
+              <IconButton component={Link} to={"/users/" + username}>
                 <UserAvatar width={30} height={30} username={user.username} />
               </IconButton>
               <Button onClick={handleLogout}>Logout</Button>
