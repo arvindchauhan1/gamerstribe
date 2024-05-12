@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@shopping24/rake-js": "^2.2.1",
+    "@trycourier/courier": "^6.1.1",
     "bad-words": "^3.0.3",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -22,7 +23,9 @@
     "express-validator": "^6.14.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
+    "nodemailer": "^6.9.13",
     "nodemon": "^2.0.16",
+    "otp-generator": "^4.0.1",
     "socket.io": "^4.5.1",
     "validator": "^13.7.0"
   }
