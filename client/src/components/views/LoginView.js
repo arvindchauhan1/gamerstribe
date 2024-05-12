@@ -46,7 +46,7 @@ const LoginView = () => {
       <Stack alignItems="center">
         <Typography variant="h2" color="text.secondary" sx={{ mb: 6 }}>
           <Link to="/" color="inherit" underline="none">
-            
+            GamersZoo
           </Link>
         </Typography>
         <Typography variant="h5" gutterBottom>
@@ -79,6 +79,9 @@ const LoginView = () => {
           />
 
           <ErrorAlert error={serverError} />
+          <Typography mt={0} >
+            <Link to="/forget-password">Forgot Password?</Link>
+          </Typography>
           <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
             Login
           </Button>
