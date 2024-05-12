@@ -4,7 +4,9 @@ const PostLike = require("../models/PostLike");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Follow = require("../models/Follow");
+const OTP = require("../models/OtpModel");
 const { default: mongoose } = require("mongoose");
+const { messages } = require("@trycourier/courier/api");
 
 const getUserDict = (token, user) => {
   return {
@@ -24,8 +26,11 @@ const buildToken = (user) => {
 
 const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, otp } = req.body;
 
+
+    // --disable
+    // if (!(username && email && password && otp)) {
     if (!(username && email && password)) {
       throw new Error("All input required");
     }
@@ -41,6 +46,16 @@ const register = async (req, res) => {
     if (existingUser) {
       throw new Error("Email and username must be unique");
     }
+
+    // Find the most recent OTP for the email
+    // --disable
+    // const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+    // if (response.length === 0 || otp !== response[0].otp) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: 'The OTP is not valid',
+    //   });
+    // }
 
     const user = await User.create({
       username,
@@ -69,7 +84,7 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: normalizedEmail });
 
     if (!user) {
-      throw new Error("Email or password incorrect");
+      throw new Error("User does not exist");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -85,6 +100,44 @@ const login = async (req, res) => {
     console.log(err);
     return res.status(400).json({ error: err.message });
   }
+};
+
+const updatePassword = async (req, res) => {
+
+  try {
+    const { email, password, otp } = req.body;
+    if (!(email && password && otp)) {
+      throw new Error("All input required");
+    }
+    const normalizedEmail = email.toLowerCase();
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.findOne({ email: normalizedEmail });
+
+    if (!user) {
+      throw new Error("User does not exist");
+    }
+    // Find the most recent OTP for the email
+    // --disable
+    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+    if (response.length === 0 || otp !== response[0].otp) {
+      return res.status(400).json({
+        success: false,
+        message: 'The OTP is not valid',
+      });
+    }
+
+    user.password = hashedPassword;
+    await user.save();
+
+    return res.status(200).json({ success: true, messages: 'Password updated successfully' });
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+    console.log(error);
+  }
+
 };
 
 const follow = async (req, res) => {
@@ -253,6 +306,7 @@ const getRandomIndices = (size, sourceSize) => {
 module.exports = {
   register,
   login,
+  updatePassword,
   follow,
   unfollow,
   getFollowers,
