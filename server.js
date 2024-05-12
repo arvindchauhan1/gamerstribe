@@ -5,12 +5,16 @@ const cors = require("cors");
 const path = require("path");
 const app = express();
 const { authSocket, socketServer } = require("./socketServer");
+
+const otp = require("./routes/otpRoutes");
+
 const posts = require("./routes/posts");
 const users = require("./routes/users");
 const comments = require("./routes/comments");
 const messages = require("./routes/messages");
 const PostLike = require("./models/PostLike");
 const Post = require("./models/Post");
+
 
 dotenv.config();
 
@@ -38,6 +42,8 @@ httpServer.listen(process.env.PORT || 4000, () => {
 
 app.use(express.json());
 app.use(cors());
+// otpRoutes
+app.use("/api", otp);
 app.use("/api/posts", posts);
 app.use("/api/users", users);
 app.use("/api/comments", comments);
