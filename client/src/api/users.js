@@ -69,4 +69,46 @@ const updateUser = async (user, data) => {
   }
 };
 
-export { signup, login, getUser, getRandomUsers, updateUser };
+const sendOtp = async (email) => {
+  try {
+    const res = await fetch(BASE_URL + "api/send-otp", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+    return res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const updatePassword = async (data) => {
+  try {
+    const res = await fetch(BASE_URL + "api/users/update-password", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export {
+  signup,
+  login,
+  getUser,
+  getRandomUsers,
+  updateUser,
+  sendOtp,
+  updatePassword
+};

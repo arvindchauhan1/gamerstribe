@@ -4,25 +4,29 @@ import {
   Stack,
   TextField,
   Typography,
-  Link,
   Alert,
+  Grid,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { signup } from "../../api/users";
+import { sendOtp, signup } from "../../api/users";
 import { loginUser } from "../../helpers/authHelper";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "../ErrorAlert";
 import { isLength, isEmail, contains } from "validator";
+import CheckIcon from '@mui/icons-material/Check';
 
 const SignupView = () => {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
+  const [disableEmail, setDisableEmail] = useState(false);
+  const [isAlert, setIsAlert] = useState(false)
 
   const [formData, setFormData] = useState({
     username: "",
     email: "",
+    otp: "",
     password: "",
   });
 
@@ -49,7 +53,7 @@ const SignupView = () => {
   const validate = () => {
     const errors = {};
 
-    if (!isLength(formData.username, { min: 6, max: 30 })) {
+    if (!isLength(formData.username, { min: 4, max: 30 })) {
       errors.username = "Must be between 6 and 30 characters long";
     }
 
@@ -70,12 +74,36 @@ const SignupView = () => {
     return errors;
   };
 
+  const handleOtpSend = async (e) => {
+    e.preventDefault();
+
+    if (!isEmail(formData.email)) {
+      setErrors({ email: "Must be a valid email address" });
+      return;
+    }
+
+    try {
+      const res = await sendOtp(formData.email);
+      setDisableEmail(true);
+      setIsAlert(true);
+      console.log("OTP sent");
+      console.log(res);
+
+      setTimeout(() => {
+        setIsAlert(false);
+      }, 6000);
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
   return (
     <Container maxWidth={"xs"} sx={{ mt: { xs: 2, md: 6 } }}>
       <Stack alignItems="center">
         <Typography variant="h2" color="text.secondary" sx={{ mb: 6 }}>
           <Link to="/" color="inherit" underline="none">
-            
+            GamersZoo
           </Link>
         </Typography>
         <Typography variant="h5" gutterBottom>
@@ -97,17 +125,48 @@ const SignupView = () => {
             error={errors.username !== undefined}
             helperText={errors.username}
           />
+          {isAlert ? <Alert severity="success" icon={<CheckIcon fontSize="inherit" />}>
+            Otp Sent
+          </Alert> : ""}
+          <Grid container spacing={1} >
+            <Grid item xs={10}>
+              <TextField
+                disabled={disableEmail}
+                label="Email Address"
+                fullWidth
+                margin="normal"
+                autoComplete="email"
+                required
+                id="email"
+                name="email"
+                onChange={handleChange}
+                error={errors.email !== undefined}
+                helperText={errors.email}
+              />
+            </Grid>
+            <Grid item alignItems={"center"} xs={1}>
+              <Button
+                variant="contained"
+                sx={{ mt: 2, fontSize: "12px" }}
+                onClick={handleOtpSend}
+                disabled={disableEmail}
+              >
+                Send OTP
+              </Button>
+            </Grid>
+          </Grid>
           <TextField
-            label="Email Address"
+            type="number"
+            label="Otp"
             fullWidth
             margin="normal"
-            autoComplete="email"
-            required
-            id="email"
-            name="email"
+            autoComplete="Number"
+            required={false}
+            id="otp"
+            name="otp"
             onChange={handleChange}
-            error={errors.email !== undefined}
-            helperText={errors.email}
+            error={errors.otp !== undefined}
+            helperText={errors.otp}
           />
           <TextField
             label="Password"
@@ -123,7 +182,12 @@ const SignupView = () => {
             helperText={errors.password}
           />
           <ErrorAlert error={serverError} />
-          <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ my: 2 }}
+          >
             Sign Up
           </Button>
         </Box>

@@ -91,7 +91,7 @@ const UserLikeModal = ({ postId, open, setOpen }) => {
           e.stopPropagation();
         }}
       >
-        <Card>
+        <Card style={{}} sx={{ '&:hover': { backgroundColor: '#fff' } }}>
           <Typography variant="h5" mb={2}>
             Liked by
           </Typography>
@@ -105,6 +105,7 @@ const UserLikeModal = ({ postId, open, setOpen }) => {
             {loading ? <Loading /> : hasMorePages && <Box py={6}></Box>}
           </Stack>
         </Card>
+
       </Box>
     </Modal>
   );

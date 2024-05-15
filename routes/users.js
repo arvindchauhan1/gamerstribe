@@ -6,6 +6,7 @@ const { verifyToken } = require("../middleware/auth");
 
 router.post("/register", userControllers.register);
 router.post("/login", userControllers.login);
+router.post("/update-password", userControllers.updatePassword);
 router.get("/random", userControllers.getRandomUsers);
 
 router.get("/:username", userControllers.getUser);
