@@ -80,7 +80,7 @@ const LoginView = () => {
 
           <ErrorAlert error={serverError} />
           <Typography mt={0} >
-            <Link to="/forget-password">Forgot Password?</Link>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </Typography>
           <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
             Login
