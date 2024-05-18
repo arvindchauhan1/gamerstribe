@@ -81,11 +81,20 @@ const sendOtp = async (email) => {
         email,
       }),
     });
+    if (!res.ok) {
+      // Throw an error for HTTP error responses
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    // Parse JSON response for successful requests
     return res.json();
   } catch (err) {
-    console.log(err);
+    // Handle network errors and other exceptions
+    console.error("Error:", err);
+    throw err; // Re-throw the error so it can be caught by the caller
   }
 };
+
 
 const updatePassword = async (data) => {
   try {

@@ -14,6 +14,7 @@ import { isLength, isEmail } from "validator";
 import CheckIcon from '@mui/icons-material/Check';
 import { sendOtp, updatePassword } from '../../api/users';
 import ErrorAlert from "../ErrorAlert";
+import { set } from 'mongoose';
 
 
 
@@ -27,7 +28,7 @@ const ForgotPasswordView = () => {
     const [serverError, setServerError] = useState("");
     const [errors, setErrors] = useState({});
     const [disableEmail, setDisableEmail] = useState(false);
-    const [isAlert, setIsAlert] = useState(false);
+    const [isAlert, setIsAlert] = useState({ flag: false, message: "" });
     const navigate = useNavigate();
 
 
@@ -66,26 +67,18 @@ const ForgotPasswordView = () => {
         e.preventDefault();
 
         const errors = validate();
-        console.log(errors);
         if (Object.keys(errors).length !== 0) return;
-
-        console.log(formData);
-        setServerError("fale");
-
         const data = await updatePassword(formData);
 
         if (data.error) {
-            setErrors({ password: data.error });
-            console.log("Error:" + data.error);
+            setServerError(data.error);
+            console.log("Message:" + data.error);
             return;
         }
-
-        if (data.message) {
-            setServerError(data.message);
-            console.log("Message:" + data.message);
-            return;
-        }
-        navigate("/login");
+        setIsAlert({ flag: true, message: "Password Updated" });
+        setTimeout(() => {
+            navigate("/login");
+        }, 2000);
     }
 
     const handleOtpSend = async (e) => {
@@ -95,26 +88,19 @@ const ForgotPasswordView = () => {
             return;
         }
 
-
-        setDisableEmail(true);
-
         try {
             const res = await sendOtp(formData.email);
 
             setDisableEmail(true);
-            setIsAlert(true);
-            console.log("OTP sent");
-            console.log(res);
-
+            setIsAlert({ flag: true, message: "Otp Sent" });
 
             setTimeout(() => {
-                setIsAlert(false);
+                setIsAlert({ flag: false, message: "" });
             }, 6000);
         } catch (err) {
             console.log(err);
+            setServerError("Error sending OTP");
         }
-
-        console.log("Send OTP");
     }
 
     return (
@@ -127,17 +113,17 @@ const ForgotPasswordView = () => {
                         </Link>
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                        Forget Password
+                        Forgot Password
                     </Typography>
 
 
                     <Box component="form" onSubmit={handleSubmit}>
                         {
-                            isAlert ? <Alert
+                            isAlert.flag ? <Alert
                                 severity="success"
                                 icon={<CheckIcon fontSize="inherit" />}
                             >
-                                Otp Sent
+                                {isAlert.message}
                             </Alert>
                                 :
                                 ""

@@ -24,9 +24,11 @@ async function sendVerificationEmail(email, otp) {
             email,
             "Verification Email",
             `<h1>Please confirm your OTP</h1>
-       <p>Here is your OTP code: ${otp}</p>`
+            <p>Here is your OTP code: 
+                <b>${otp}</b>
+            </p>`
         );
-        console.log("Email sent successfully: ", mailResponse);
+        console.log("Email sent successfully: ", mailResponse.accepted);
     } catch (error) {
         console.log("Error occurred while sending email: ", error);
         throw error;
@@ -34,6 +36,7 @@ async function sendVerificationEmail(email, otp) {
 }
 otpSchema.pre("save", async function (next) {
     console.log("New document saved to the database");
+    sendVerificationEmail(this.email, this.otp);
     // Only send an email when a new document is created
     if (this.isNew) {
         // await sendVerificationEmail(this.email, this.otp);
