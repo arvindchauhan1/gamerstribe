@@ -86,14 +86,13 @@ const SignupView = () => {
       const res = await sendOtp(formData.email);
       setDisableEmail(true);
       setIsAlert(true);
-      console.log("OTP sent");
-      console.log(res);
 
       setTimeout(() => {
         setIsAlert(false);
       }, 6000);
     } catch (err) {
       console.log(err);
+      setServerError("Failed to send OTP")
     }
 
   }
