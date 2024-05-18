@@ -30,6 +30,7 @@ import { useEffect } from "react";
 import { BASE_URL } from "./config";
 import { io } from "socket.io-client";
 import SplashScreen from "./components/views/SplashScreen";
+import ForgotPasswordView from "./components/views/ForgotPasswordView";
 
 function App() {
   initiateSocketConnection();
@@ -61,6 +62,7 @@ function App() {
           <Route path="/search" element={<SearchView />} />
           <Route path="/users/:id" element={<ProfileView />} />
           <Route path="/login" element={<LoginView />} />
+          <Route path="/forgot-password" element={<ForgotPasswordView />} />
           <Route path="/signup" element={<SignupView />} />
         </Routes>
       </BrowserRouter>
