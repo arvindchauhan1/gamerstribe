@@ -28,10 +28,9 @@ const register = async (req, res) => {
   try {
     const { username, email, password, otp } = req.body;
 
-
     // --disable
-    // if (!(username && email && password && otp)) {
-    if (!(username && email && password)) {
+    // if (!(username && email && password)) {
+    if (!(username && email && password && otp)) {
       throw new Error("All input required");
     }
 
@@ -49,13 +48,10 @@ const register = async (req, res) => {
 
     // Find the most recent OTP for the email
     // --disable
-    // const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
-    // if (response.length === 0 || otp !== response[0].otp) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: 'The OTP is not valid',
-    //   });
-    // }
+    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+    if (response.length === 0 || otp !== response[0].otp) {
+      throw new Error("The OTP is not valid")
+    }
 
     const user = await User.create({
       username,
