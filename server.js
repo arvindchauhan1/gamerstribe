@@ -21,7 +21,7 @@ dotenv.config();
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: {
-    origin: ["http://localhost:3000", "https://post-it-heroku.herokuapp.com"],
+    origin: ["http://localhost:3000", "https://gamerszoo.onrender.com/"],
   },
 });
 
@@ -36,8 +36,18 @@ mongoose.connect(
   }
 );
 
+if (process.env.NODE_ENV !== "production") {
+  app.get("/test", (req, res) => {
+    res.json({
+      success: true,
+      messages: "Server is running"
+    })
+  })
+}
+
+
 httpServer.listen(process.env.PORT || 4000, () => {
-  console.log(`listening to http://localhost:${process.env.PORT || 5000}`);
+  console.log(`listening to http://localhost:${process.env.PORT || 4000}`);
 });
 
 app.use(express.json());
