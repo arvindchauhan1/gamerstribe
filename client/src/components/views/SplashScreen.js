@@ -41,7 +41,7 @@ const SplashScreen = () => {
   return (
     <SplashScreenContainer>
       <ContentContainer>
-        <Typography variant="h3" sx={{ color: "#a0c0ff" }} >Gamers Zoo</Typography>
+        <Typography variant="h3" sx={{ color: "#a0c0ff" }} >Gamers Tribe</Typography>
         {/* <Typography variant="subtitle1" sx={{ marginTop: '1rem' }}>
           Connecting students worldwide
         </Typography> */}

@@ -107,9 +107,9 @@ const ForgotPasswordView = () => {
         <>
             <Container maxWidth={"xs"} sx={{ mt: 6 }}>
                 <Stack alignItems="center">
-                    <Typography variant="h2" color="text.secondary" sx={{ mb: 6 }}>
+                    <Typography variant="h3" color="text.secondary" sx={{ mb: 1 }}>
                         <Link to="/" color="inherit" underline="none">
-                            {/* GamersZoo */}
+                            GamersTribe
                         </Link>
                     </Typography>
                     <Typography variant="h5" gutterBottom>
