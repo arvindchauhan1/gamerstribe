@@ -1,37 +1,124 @@
-<h1>College Community Website</h1>
+# GamersTribe
 
-<h2>Overview</h2>
+GamersTribe is a web application designed to connect gamers worldwide. It allows users to create and share posts, search for other gamers, and communicate through a messenger feature. This project is built with a React front-end and an Express back-end.
 
-<p>Welcome to our College Community Website! This platform serves as a hub for students to engage in discussions, find hostels, and report lost/found items. Built using the MERN stack, it offers a user-friendly interface akin to Reddit.</p>
+## Table of Contents
 
-<h2>Features</h2>
+- [GamersTribe](#gamerstribe)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+  - [Usage](#usage)
+  - [Technologies Used](#technologies-used)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Live Demo](#live-demo)
 
-<ul>
-  <li><strong>Hostel Finder:</strong> Search and discover available hostels near the campus.</li>
-  <li><strong>Q&A Section:</strong> Ask questions, seek advice, and share insights with fellow students.</li>
-  <li><strong>Lost and Found:</strong> Report lost items or browse found items within the college community.</li>
-  <li><strong>Reddit-style Interface:</strong> Enjoy a familiar and intuitive user interface for seamless navigation.</li>
-</ul>
+## Features
 
-<h2>Technologies Used</h2>
+- **User Authentication:** Sign up and log in to access all features.
+- **Create Posts:** Share your thoughts and updates with other gamers.
+- **Explore Posts:** Browse posts from other gamers.
+- **User Profiles:** View and edit your profile.
+- **Search:** Find other gamers and posts.
+- **Messenger:** Real-time chat with other users.
+- **Responsive Design:** Optimized for both desktop and mobile devices.
 
-<ul>
-  <li><strong>MongoDB:</strong> NoSQL database for efficient data storage.</li>
-  <li><strong>Express.js:</strong> Backend framework for routing and handling server logic.</li>
-  <li><strong>React.js:</strong> Frontend library for building dynamic user interfaces.</li>
-  <li><strong>Node.js:</strong> Server-side JavaScript runtime environment.</li>
-</ul>
+## Installation
 
-<h2>Setup</h2>
+### Prerequisites
 
-<ol>
-  <li>Clone this repository.</li>
-  <li>Navigate to the project directory.</li>
-  <li>Install dependencies using <code>npm install</code>.</li>
-  <li>Start the backend server and then the client using <code>npm start</code>.</li>
-  <li>Add Mongo URL and key in <code>.env</code> file.</li>
-  <li>Access the application at <a href="http://localhost:3000">http://localhost:3000</a>.</li>
-  <ul>
-    <li>Backend is hosted at <a href="http://localhost:4000">http://localhost:4000</a>.</li>
-  </ul>
-</ol>
+Make sure you have the following installed:
+
+- Node.js
+- MongoDB
+
+### Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/arvindchauhan1/gamerstribe
+   cd gamerstribe
+   ```
+
+2. **Backend Setup:**
+
+   ```sh
+   npm install
+   ```
+
+3. **Frontend Setup:**
+
+   ```sh
+   cd client
+   npm install
+   ```
+
+4. **Environment Variables:**
+
+   Create a `.env` file in the root directory and add the following variables:
+
+   ```
+   MONGO_URI=mongodb://127.0.0.1:27017/gamers-tribe
+   TOKEN_KEY=your-secret-key
+   PORT=4000
+   NODE_ENV=production
+   ```
+
+## Usage
+
+1. **Run the backend server:**
+
+   ```sh
+   npm run server
+   ```
+
+2. **Run the frontend app:**
+
+   ```sh
+   cd client
+   npm start
+   ```
+
+3. **Build the frontend app:**
+
+   ```sh
+   npm run build
+   ```
+
+## Technologies Used
+
+- **Frontend:**
+
+  - React
+  - Material-UI
+  - React Router
+  - Socket.io-client
+
+- **Backend:**
+  - Express
+  - Mongoose
+  - JWT
+  - Socket.io
+
+## Contributing
+
+We welcome contributions to GamersTribe! To contribute, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add your feature'`).
+5. Push to the branch (`git push origin feature/your-feature`).
+6. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Live Demo
+
+Check out the live demo of GamersTribe [here](https://gamerszoo.onrender.com/).
